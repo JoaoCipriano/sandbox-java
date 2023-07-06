@@ -14,19 +14,6 @@ sonar {
     }
 }
 
-subprojects {
-    apply plugin: 'java'
-
-    sonarqube {
-        properties {
-            property "sonar.sources", "src/main"
-            property "sonar.test.inclusions", "src/test"
-            property "sonar.jacoco.coverage.reportPaths", "$buildDir/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
-            property "sonar.junit.reportsPaths", "$buildDir/test-results/"
-        }
-    }
-}
-
 allprojects {
 
     apply plugin: 'java'
@@ -72,6 +59,15 @@ allprojects {
     tasks.named('test') {
         useJUnitPlatform()
         finalizedBy jacocoTestReport
+    }
+
+    sonarqube {
+        properties {
+            property "sonar.sources", "src/main"
+            property "sonar.test.inclusions", "src/test"
+            property "sonar.jacoco.coverage.reportPaths", "$buildDir/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
+            property "sonar.junit.reportsPaths", "$buildDir/test-results/"
+        }
     }
 
     jacoco {
